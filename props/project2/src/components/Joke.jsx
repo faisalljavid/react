@@ -1,11 +1,9 @@
 export default function Joke(props) {
-    console.log(props.comments);
-    
     return (
-        <article>
-           {props.setup && <p className="setup">{`Setup: ${props.setup}`}</p>}
-            <p className="punchline">{`Punchline: ${props.punchLine}`}</p>
+        <>
+            {props.setups && <p className="setup">{`Setup: ${props.setups}`}</p>}
+            <p className="punchline">{`Punchline: ${props.punchlines}`}</p>
             <hr />
-        </article>
+        </>
     )
 }
