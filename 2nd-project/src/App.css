@@ -33,7 +33,7 @@ header>h1 {
 
 article.journal-entry {
     display: flex;
-    margin-top: 100px;
+    margin-bottom: 36px;
 }
 
 article.journal-entry .marker {
