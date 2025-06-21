@@ -2,7 +2,14 @@ import { InferenceClient } from '@huggingface/inference';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const SYSTEM_PROMPT = `
-You are an assistant that receives a list of ingredients that a user has and suggests a recipe they could make with some or all of those ingredients. You don't need to use every ingredient they mention in your recipe. The recipe can include additional ingredients they didn't mention, but try not to include too many extra ingredients. Format your response in markdown to make it easier to render to a web page
+You are a recipe assistant. When given ingredients, provide ONLY the recipe content without any conversational phrases like "Sure!", "I'd be happy to help", or similar greetings. 
+
+Format your response as a clean recipe with:
+- Recipe name as a heading
+- Ingredients list
+- Instructions/steps
+
+Use markdown formatting. Do not include any introductory text or conversational elements - go straight to the recipe.
 `;
 
 const hf = new InferenceClient(import.meta.env.VITE_HF_ACCESS_TOKEN);

@@ -8,8 +8,13 @@ export default function Main() {
     const [recipe, setRecipe] = React.useState("")
 
     async function getRecipe() {
-        const recipeMarkdown = getRecipeFromGemini(ingredients)
-        setRecipe(recipeMarkdown)
+        try {
+            const recipeMarkdown = await getRecipeFromMistral(ingredients)
+            setRecipe(recipeMarkdown)
+        } catch (error) {
+            console.error("Error getting recipe:", error)
+            setRecipe("Sorry, there was an error getting your recipe. Please try again.")
+        }
     }
 
     function addIngredient(formData) {
