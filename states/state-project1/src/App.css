@@ -48,7 +48,7 @@ main {
     max-width: 400px;
 }
 
-.add-ingredient-form > button {
+.add-ingredient-form>button {
     font-family: Inter, sans-sefif;
     border-radius: 6px;
     border: none;
@@ -59,7 +59,7 @@ main {
     color: #FAFAFB;
 }
 
-.add-ingredient-form > button::before {
+.add-ingredient-form>button::before {
     content: "+";
     margin-right: 5px;
 }
@@ -68,7 +68,7 @@ ul.ingredients-list {
     margin-bottom: 48px;
 }
 
-ul.ingredients-list > li {
+ul.ingredients-list>li {
     color: #475467;
     line-height: 28px;
 }
@@ -104,4 +104,16 @@ ul.ingredients-list > li {
     font-family: Inter, sans-serif;
     font-size: 0.875rem;
     cursor: pointer;
+}
+
+.suggested-recipe-container {
+    color: #475467;
+    line-height: 28px;
+    font-size: 1.125rem;
+    font-weight: 400;
+}
+
+.suggested-recipe-container ul li,
+.suggested-recipe-container ol li {
+    margin-bottom: 8px;
 }
