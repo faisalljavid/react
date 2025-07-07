@@ -24,10 +24,15 @@ export default function App() {
     }
 
     function rollDice() {
-        setDice(oldDice => oldDice.map(die => {
-            return die.isHeld ? die :
-                { ...die, value: Math.ceil(Math.random() * 6) }
-        }))
+        if (!gameWon) {
+            setDice(oldDice => oldDice.map(die => {
+                return die.isHeld ? die :
+                    { ...die, value: Math.ceil(Math.random() * 6) }
+            }))
+        } else {
+            setDice(generateAllNewDice())
+        }
+
     }
 
     function hold(id) {
