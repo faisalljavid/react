@@ -4,7 +4,15 @@ export default function Die(props) {
     }
     return (
         <>
-            <button style={styles} onClick={props.hold}> {props.value} </button>
+            <button
+                style={styles}
+                onClick={props.hold}
+                aria-pressed={props.isHeld}
+                aria-label={`Die with a value ${props.value}, 
+                ${props.isHeld ? "held" : "not held"}`}
+            >
+                {props.value}
+            </button>
         </>
     )
 }
