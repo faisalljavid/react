@@ -7,6 +7,15 @@ import { languages } from "./assets/languages"
 
 export default function AssemblyEndgame() {
     const [currentWord, setCurrentWord] = useState("react")
+    const [guessedLetter, setGuessedLetter] = useState([])
+    
+    const alphabet = "abcdefghijklmnopqrstuvwxyz"
+
+    function addGuessedLetter(letter) {
+        setGuessedLetter(prevLetters => {
+            return prevLetters.includes(letter) ? prevLetters : [...prevLetters, letter]
+        })
+    }
 
     const letterElements = currentWord
         .toUpperCase()
@@ -25,6 +34,12 @@ export default function AssemblyEndgame() {
             key={langObj.name}
         />
     })
+
+    const keyboardElements = alphabet
+        .split("")
+        .map((letter) => {
+            return <button key={letter} onClick={() => addGuessedLetter(letter)}> {letter.toUpperCase()} </button>
+        })
     return (
         <>
             <Header />
@@ -35,6 +50,10 @@ export default function AssemblyEndgame() {
             <section className="word">
                 {letterElements}
             </section>
+            <section className="keyboard">
+                {keyboardElements}
+            </section>
+            <button className="new-game">New Game</button>
         </>
     )
 }
