@@ -19,11 +19,12 @@ export default function AssemblyEndgame() {
     }
 
     const letterElements = currentWord
-        .toUpperCase()
         .split("")
         .map((letter, index) => {
             return <span key={index}>
-                {letter}
+                {guessedLetter.includes(letter)
+                    ? letter.toUpperCase()
+                    : ""}
             </span>
         })
 
@@ -46,7 +47,6 @@ export default function AssemblyEndgame() {
                 correct: isCorrect,
                 wrong: isWrong
             })
-            console.log(className)
             return <button
                 className={className}
                 key={letter}
