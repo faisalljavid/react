@@ -87,7 +87,7 @@ export default function AssemblyEndgame() {
     )
 
     return (
-        <>
+        <main>
             <Header />
             <Status
                 gameStatusClass={gameStatusClass}
@@ -108,6 +108,6 @@ export default function AssemblyEndgame() {
                     <button className="new-game">New Game</button>
                     : null
             }
-        </>
+        </main>
     )
 }
