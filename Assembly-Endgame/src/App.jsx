@@ -7,6 +7,7 @@ import { languages } from "./assets/languages"
 import { clsx } from "clsx"
 import { getFarewellText } from "./assets/utils"
 import { getRandomWord } from "./assets/utils"
+import Confetti from "react-confetti"
 
 export default function AssemblyEndgame() {
 
@@ -144,7 +145,12 @@ export default function AssemblyEndgame() {
                 gameStatusClass={gameStatusClass}
                 renderGameStatus={renderGameStatus}
             />
-
+            {isGameWon
+                ? <Confetti
+                    recycle={false}
+                    numberOfPieces={1000}
+                />
+                : null}
             <section className="language-chips">
                 {languageElements}
             </section>
