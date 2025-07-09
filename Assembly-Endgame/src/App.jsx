@@ -14,6 +14,7 @@ export default function AssemblyEndgame() {
     const [guessedLetter, setGuessedLetter] = useState([])
 
     // Derived values
+    const numOfGuessesLeft = languages.length - 1
     const wrongGuessedCountArray =
         guessedLetter.filter(letter => !currentWord.includes(letter)).length
 
@@ -22,7 +23,7 @@ export default function AssemblyEndgame() {
             .every(letter => guessedLetter.includes(letter))
 
     const isGameLost =
-        wrongGuessedCountArray >= languages.length - 1
+        wrongGuessedCountArray >= numOfGuessesLeft
 
     const isGameOver = isGameWon || isGameLost
 
@@ -31,7 +32,6 @@ export default function AssemblyEndgame() {
 
     // Static values
     const alphabet = "abcdefghijklmnopqrstuvwxyz"
-    // console.log(getFarewellText(languages.name));
 
     function addGuessedLetter(letter) {
         setGuessedLetter(prevLetters => {
@@ -81,6 +81,8 @@ export default function AssemblyEndgame() {
                 className={className}
                 key={letter}
                 disabled={isGameOver}
+                aria-disabled={guessedLetter.includes(letter)}
+                aria-label={`Letter ${letter}`}
                 onClick={() => addGuessedLetter(letter)}
             >
                 {letter.toUpperCase()} </button>
@@ -131,20 +133,46 @@ export default function AssemblyEndgame() {
                 gameStatusClass={gameStatusClass}
                 renderGameStatus={renderGameStatus}
             />
+
             <section className="language-chips">
                 {languageElements}
             </section>
+
             <section className="word">
                 {letterElements}
             </section>
+
+            {/* Combined visually-hidden aria-live region for status updates */}
+            <section
+                aria-live="polite"
+                role="status"
+                className="sr-only"
+            >
+                <p>
+                    {
+                        currentWord.includes(lastGuessedLetter) ?
+                            `Correct! The letter ${lastGuessedLetter} is in the word.` :
+                            `Sorry, the letter ${lastGuessedLetter} is not in the word.`
+                    }
+                    You have {numOfGuessesLeft} attempts left.
+                </p>
+                <p>
+                    Current word: {currentWord.split("").map(letter =>
+                        guessedLetter.includes(letter) ? letter + "." : "blank.")
+                        .join(" ")}
+                </p>
+            </section>
+
             <section className="keyboard">
                 {keyboardElements}
             </section>
+
             {
                 isGameOver ?
                     <button className="new-game">New Game</button>
                     : null
             }
+
         </main>
     )
 }

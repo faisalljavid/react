@@ -1,6 +1,10 @@
 export default function Status(props) {
     return (
-        <section className={props.gameStatusClass}>
+        <section
+            aria-live="polite"
+            role="status"
+            className={props.gameStatusClass}
+        >
             {props.renderGameStatus()}
         </section>
     )
