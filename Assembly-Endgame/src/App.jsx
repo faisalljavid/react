@@ -43,8 +43,12 @@ export default function AssemblyEndgame() {
     const letterElements = currentWord
         .split("")
         .map((letter, index) => {
-            return <span key={index}>
-                {guessedLetter.includes(letter)
+            const shouldRevealLetter = isGameLost || guessedLetter.includes(letter)
+            const letterClassName = clsx({
+                "missed-letter": isGameLost && !guessedLetter.includes(letter)
+            })
+            return <span key={index} className={letterClassName}>
+                {shouldRevealLetter
                     ? letter.toUpperCase()
                     : ""}
             </span>
@@ -121,10 +125,16 @@ export default function AssemblyEndgame() {
                 <>
                     <h2>Game over!</h2>
                     <p>You lose! Better start learning Assembly 😭</p>
+                    {console.log(currentWord)}
                 </>
             )
         }
         return null
+    }
+
+    function startNewGame() {
+        setCurrentWord(getRandomWord())
+        setGuessedLetter([])
     }
 
     return (
@@ -170,7 +180,11 @@ export default function AssemblyEndgame() {
 
             {
                 isGameOver ?
-                    <button className="new-game">New Game</button>
+                    <button
+                        className="new-game"
+                        onClick={startNewGame}
+                    >
+                        New Game</button>
                     : null
             }
 
