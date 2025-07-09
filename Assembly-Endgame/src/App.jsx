@@ -6,11 +6,12 @@ import Eliminations from "./components/Eliminations"
 import { languages } from "./assets/languages"
 import { clsx } from "clsx"
 import { getFarewellText } from "./assets/utils"
+import { getRandomWord } from "./assets/utils"
 
 export default function AssemblyEndgame() {
 
     // State values
-    const [currentWord, setCurrentWord] = useState("react")
+    const [currentWord, setCurrentWord] = useState(() => getRandomWord())
     const [guessedLetter, setGuessedLetter] = useState([])
 
     // Derived values
