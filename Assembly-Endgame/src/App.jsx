@@ -7,9 +7,25 @@ import { languages } from "./assets/languages"
 import { clsx } from "clsx"
 
 export default function AssemblyEndgame() {
+
+    // State values
     const [currentWord, setCurrentWord] = useState("react")
     const [guessedLetter, setGuessedLetter] = useState([])
 
+    // Derived values
+    const wrongGuessedCountArray =
+        guessedLetter.filter(letter => !currentWord.includes(letter)).length
+
+    const isGameWon =
+        currentWord.split("")
+            .every(letter => guessedLetter.includes(letter))
+
+    const isGameLost =
+        wrongGuessedCountArray >= languages.length - 1
+
+    const isGameOver = isGameWon || isGameLost
+
+    // Static values
     const alphabet = "abcdefghijklmnopqrstuvwxyz"
 
     function addGuessedLetter(letter) {
@@ -28,12 +44,20 @@ export default function AssemblyEndgame() {
             </span>
         })
 
-    const languageElements = languages.map((langObj) => {
+    const languageElements = languages.map((langObj, index) => {
+        const isLanguagesLost = index < wrongGuessedCountArray
+        const className = clsx(
+            "chip",
+            {
+                "lost": isLanguagesLost
+            }
+        )
         return <Eliminations
             name={langObj.name}
             backgroundColor={langObj.backgroundColor}
             color={langObj.color}
             key={langObj.name}
+            className={className}
         />
     })
 
@@ -54,10 +78,22 @@ export default function AssemblyEndgame() {
             >
                 {letter.toUpperCase()} </button>
         })
+
+    const gameStatusClass = clsx("game-status",
+        {
+            won: isGameWon,
+            lost: isGameLost
+        }
+    )
+
     return (
         <>
             <Header />
-            <Status />
+            <Status
+                gameStatusClass={gameStatusClass}
+                isGameOver={isGameOver}
+                isGameWon={isGameWon}
+            />
             <section className="language-chips">
                 {languageElements}
             </section>
@@ -67,7 +103,11 @@ export default function AssemblyEndgame() {
             <section className="keyboard">
                 {keyboardElements}
             </section>
-            <button className="new-game">New Game</button>
+            {
+                isGameOver ?
+                    <button className="new-game">New Game</button>
+                    : null
+            }
         </>
     )
 }

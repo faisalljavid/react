@@ -4,7 +4,7 @@ export default function Eliminations(props) {
         color: props.color
     }
     return (
-        <span className="chip" style={styles}>
+        <span className={props.className} style={styles}>
             {props.name}
         </span>
     )
